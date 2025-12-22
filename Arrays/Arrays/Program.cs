@@ -1,4 +1,5 @@
 ﻿using Arrays.ArrayFunctions;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -13,5 +14,15 @@ public class Program
         int[] result = FindTarget.twoSum(numbers, 9);
         Console.WriteLine($"Two Sum Result Indices: [{string.Join(", ", result)}]");
 
+        int[] array = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+        int maxSubarraySum = MaximumSubarray.MaxSubarray(array);
+        Console.WriteLine($"Maximum Subarray Sum: {maxSubarraySum}");
+
+        int[] height = { 1, 8, 6, 2, 5, 4, 8, 3, 7 }; //the answer is 49
+        int maxWater = ContainerWithMostWater.MaxWater(height);
+        Console.WriteLine($"Maximum Water Container Area: {maxWater}");
+
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] even = EvenNums.EvenNumbers(nums);
     }
 }
