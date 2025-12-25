@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using UsersApp.Models.ViewModels;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Verify Email";
+    Layout = "_AccountLayout";
+}
+
+<div class="account-container">
+    <div class="account-box">
+        <h2 class="text-center mb-4">Verify Email</h2>
+        <form asp-action="VerifyEmail" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            
+            <input type="submit" value="Verify" class="btn btn-success w-100 p-2" />
+            
+            <div class="text-center mt-2">
+                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--add client side authentication-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

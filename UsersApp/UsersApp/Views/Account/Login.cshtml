@@ -6,9 +6,6 @@
     Layout = "_AccountLayout";
 }
 
-
-<h1>Login page</h1>
-
 <div class="account-container">
     <div class="account-box">
         <h2 class="text-center mb-4">Login</h2>
@@ -24,17 +21,34 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div>
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                    Forgot Password
+                </a>
+            </div>
+            <div class="form-check mb-3">
                 <lable class="form-check-label">
                     <input asp-for="RememberMe" class="form-check-input" />
                     @Html.DisplayNameFor(m => m.RememberMe)
                 </lable>
-                <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
-                <div class="text-center">
-                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
-                </div>
             </div>
+            <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+            <p class="text-center mt-2">
+                  Don't have an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a>
+            </p>
+            <div class="text-center">
+                 <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+            </div>
+
+
         </form>
     </div>
-
 </div>
+
+
+<!--add client side authentication-->
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
