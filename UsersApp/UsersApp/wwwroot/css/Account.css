@@ -1,20 +1,20 @@
 ﻿.account-container {
-    background-image: url('../images/FloridaPolyImage.png');
+    background-image: url('../images/background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
     display: flex;
     justify-content: center;
-    align-items: inherit;
+    align-items: center;
     min-height: 100vh;
     padding: 2rem 0;
 }
 .account-box {
     background-color: rgb(255, 255, 255);
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: rgb(128, 128, 128);
+    border-radius: 10px;
+    box-shadow: 0, 0, 10px, rgba(0, 0, 0, 0.3);
     max-width: 500px;
-    min-width: 100px;
+    width: 100%;
     opacity: 0.9;
 }
