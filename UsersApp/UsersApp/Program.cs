@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UsersApp.Data;
 using UsersApp.Models;
+using UsersApp.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+//cntrollers
+builder.Services.AddScoped<IProductService, ProductService>();
+
 
 var app = builder.Build();
 
