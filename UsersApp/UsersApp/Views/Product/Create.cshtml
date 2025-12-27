@@ -1,7 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using UsersApp.Models.ViewModels;
+@model ProductViewModel;
+
 @{
+    ViewData["Title"] = "Create Product";
+    Layout = "_Layout";
 }
 
 <h2>Create Product</h2>
+
+<div class="account-container">
+    <div class="account-box">
+        <h2 class="text-center mb-4">Create Product</h2>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <!--TODO: uplaod image with preview (drag and drop)-->
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <select asp-for="Category" class="form-select" asp-items="Html.GetEnumSelectList<ProductCategory>()">
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Create" class="btn btn-success w-100 p-2" />
+            <div class="text-center">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<!--add client side authentication-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
