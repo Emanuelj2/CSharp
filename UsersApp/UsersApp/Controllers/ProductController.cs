@@ -27,6 +27,31 @@ namespace UsersApp.Controllers
         {
             return View();
         }
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(ProductViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Product product = new Product
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Price = model.Price,
+                    ImageUrl = model.ImageUrl,
+                    Category = model.Category
+                };
+                try
+                {
+                    await _productService.CreateProductAsync(product);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
 
 
 
