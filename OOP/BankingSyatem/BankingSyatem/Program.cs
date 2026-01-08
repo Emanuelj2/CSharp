@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-// ============================================
-// BANKING SYSTEM - COMPLETE OOP TUTORIAL
-// ============================================
 
-// ============================================
-// ABSTRACTION: Abstract base class for accounts
-// ============================================
 public abstract class Account
 {
     // Auto-implemented properties (ENCAPSULATION)
@@ -46,14 +40,14 @@ public abstract class Account
     {
         if (amount <= 0)
         {
-            Console.WriteLine("❌ Deposit amount must be positive!");
+            Console.WriteLine("Deposit amount must be positive!");
             return false;
         }
 
         Balance += amount;
         Transactions.Add(new Transaction(TransactionType.Deposit, amount,
             "Deposit", null, this));
-        Console.WriteLine($"✓ Deposited ${amount:N2}. New balance: ${Balance:N2}");
+        Console.WriteLine($"Deposited ${amount:N2}. New balance: ${Balance:N2}");
         return true;
     }
 
@@ -61,13 +55,13 @@ public abstract class Account
     {
         if (amount <= 0)
         {
-            Console.WriteLine("❌ Withdrawal amount must be positive!");
+            Console.WriteLine("Withdrawal amount must be positive!");
             return false;
         }
 
         if (amount > Balance)
         {
-            Console.WriteLine("❌ Insufficient funds!");
+            Console.WriteLine("Insufficient funds!");
             return false;
         }
 
@@ -93,9 +87,7 @@ public abstract class Account
     }
 }
 
-// ============================================
-// INHERITANCE: SavingsAccount inherits from Account
-// ============================================
+
 public class SavingsAccount : Account, ITransferable
 {
     // Auto-implemented properties
@@ -124,7 +116,7 @@ public class SavingsAccount : Account, ITransferable
     {
         if (Balance - amount < MinimumBalance)
         {
-            Console.WriteLine($"❌ Cannot withdraw. Minimum balance of ${MinimumBalance:N2} required!");
+            Console.WriteLine($"Cannot withdraw. Minimum balance of ${MinimumBalance:N2} required!");
             return false;
         }
 
@@ -156,19 +148,19 @@ public class SavingsAccount : Account, ITransferable
     {
         if (!CanTransferTo(destination))
         {
-            Console.WriteLine("❌ Transfer not allowed!");
+            Console.WriteLine("Transfer not allowed!");
             return null;
         }
 
         if (Balance - amount < MinimumBalance)
         {
-            Console.WriteLine($"❌ Transfer would violate minimum balance requirement!");
+            Console.WriteLine($"Transfer would violate minimum balance requirement!");
             return null;
         }
 
         if (amount <= 0)
         {
-            Console.WriteLine("❌ Transfer amount must be positive!");
+            Console.WriteLine("Transfer amount must be positive!");
             return null;
         }
 
@@ -183,9 +175,6 @@ public class SavingsAccount : Account, ITransferable
     }
 }
 
-// ============================================
-// INHERITANCE: CheckingAccount inherits from Account
-// ============================================
 public class CheckingAccount : Account, ITransferable
 {
     // Auto-implemented properties
@@ -221,7 +210,7 @@ public class CheckingAccount : Account, ITransferable
 
         if (Balance - amount < -OverdraftLimit)
         {
-            Console.WriteLine($"❌ Withdrawal exceeds overdraft limit of ${OverdraftLimit:N2}!");
+            Console.WriteLine($"Withdrawal exceeds overdraft limit of ${OverdraftLimit:N2}!");
             return false;
         }
 
@@ -271,7 +260,7 @@ public class CheckingAccount : Account, ITransferable
     {
         if (!CanTransferTo(destination))
         {
-            Console.WriteLine("❌ Transfer not allowed!");
+            Console.WriteLine("Transfer not allowed!");
             return null;
         }
 
@@ -280,7 +269,7 @@ public class CheckingAccount : Account, ITransferable
 
         if (Balance - totalAmount < -OverdraftLimit)
         {
-            Console.WriteLine($"❌ Transfer would exceed overdraft limit!");
+            Console.WriteLine($"Transfer would exceed overdraft limit!");
             return null;
         }
 
@@ -303,9 +292,7 @@ public class CheckingAccount : Account, ITransferable
     }
 }
 
-// ============================================
-// INHERITANCE: InvestmentAccount inherits from Account
-// ============================================
+
 public class InvestmentAccount : Account
 {
     // Auto-implemented properties
@@ -348,7 +335,7 @@ public class InvestmentAccount : Account
 
         if (totalWithdrawal > Balance)
         {
-            Console.WriteLine("❌ Insufficient funds including penalty!");
+            Console.WriteLine("Insufficient funds including penalty!");
             return false;
         }
 
@@ -369,7 +356,7 @@ public class InvestmentAccount : Account
 
         if (totalCost > Balance)
         {
-            Console.WriteLine("❌ Insufficient funds to buy stock!");
+            Console.WriteLine("Insufficient funds to buy stock!");
             return;
         }
 
@@ -395,7 +382,7 @@ public class InvestmentAccount : Account
     {
         if (!Holdings.ContainsKey(symbol) || Holdings[symbol] < quantity)
         {
-            Console.WriteLine("❌ Insufficient shares to sell!");
+            Console.WriteLine("Insufficient shares to sell!");
             return;
         }
 
@@ -416,16 +403,14 @@ public class InvestmentAccount : Account
     }
 }
 
-// ============================================
-// Customer class
-// ============================================
+
 public class Customer
 {
     // Auto-implemented properties
     public int CustomerId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string FullName => $"{FirstName} {LastName}"; // Computed property
+    public string FullName => $"{FirstName} {LastName}"; 
     public DateTime DateOfBirth { get; set; }
     public string Address { get; set; }
     public string SSN { get; private set; } // Private setter for security
@@ -479,9 +464,7 @@ public class Customer
     }
 }
 
-// ============================================
-// Transaction class
-// ============================================
+
 public class Transaction
 {
     private static int nextId = 1;
@@ -513,9 +496,6 @@ public class Transaction
     }
 }
 
-// ============================================
-// Bank class
-// ============================================
 public class Bank
 {
     // Auto-implemented properties
@@ -591,9 +571,7 @@ public class Bank
     }
 }
 
-// ============================================
-// INTERFACE: ITransferable
-// ============================================
+
 public interface ITransferable
 {
     bool CanTransferTo(Account destination);
@@ -601,9 +579,7 @@ public interface ITransferable
     Transaction ExecuteTransfer(Account destination, decimal amount);
 }
 
-// ============================================
-// ENUMS
-// ============================================
+
 public enum TransactionType
 {
     Deposit,
@@ -622,27 +598,20 @@ public enum RiskLevel
     High
 }
 
-// ============================================
-// MAIN PROGRAM
-// ============================================
+
 class Program
 {
     static void Main(string[] args)
     {
         Console.WriteLine("╔════════════════════════════════════════════╗");
-        Console.WriteLine("║      BANKING SYSTEM - OOP TUTORIAL        ║");
+        Console.WriteLine("║       BANKING SYSTEM                       ║");
         Console.WriteLine("╚════════════════════════════════════════════╝\n");
 
-        // ========================================
-        // 1. CREATE BANK
-        // ========================================
         Console.WriteLine("═══ 1. Creating Bank ═══");
         Bank firstNational = new Bank("First National Bank", "FNB001");
         Console.WriteLine($"✓ Created {firstNational.BankName}\n");
 
-        // ========================================
-        // 2. CREATE CUSTOMERS
-        // ========================================
+
         Console.WriteLine("═══ 2. Creating Customers ═══");
         Customer john = new Customer(1001, "John", "Smith",
             new DateTime(1985, 5, 15), "123 Main St", "***-**-1234");
@@ -653,9 +622,7 @@ class Program
         firstNational.RegisterCustomer(sarah);
         Console.WriteLine();
 
-        // ========================================
-        // 3. CREATE DIFFERENT ACCOUNT TYPES
-        // ========================================
+
         Console.WriteLine("═══ 3. Creating Different Account Types (Inheritance) ═══");
 
         SavingsAccount johnSavings = new SavingsAccount("SAV-001", john, 5000m, 2.5, 500m);
@@ -670,9 +637,7 @@ class Program
         sarah.OpenAccount(sarahSavings, firstNational);
         Console.WriteLine();
 
-        // ========================================
-        // 4. POLYMORPHISM - Different account types treated as Account
-        // ========================================
+
         Console.WriteLine("═══ 4. Polymorphism - Treating All as Account Type ═══");
         List<Account> allAccounts = new List<Account> { johnSavings, johnChecking, johnInvestment, sarahSavings };
 
@@ -682,17 +647,11 @@ class Program
         }
         Console.WriteLine();
 
-        // ========================================
-        // 5. METHOD OVERRIDING - Deposit
-        // ========================================
         Console.WriteLine("═══ 5. Method Overriding - Deposits ═══");
         johnSavings.Deposit(1000m);
         johnChecking.Deposit(500m);
         Console.WriteLine();
 
-        // ========================================
-        // 6. METHOD OVERRIDING - Withdrawal with different rules
-        // ========================================
         Console.WriteLine("═══ 6. Different Withdrawal Rules per Account Type ═══");
 
         Console.WriteLine("\n--- Savings Account (minimum balance enforced) ---");
@@ -705,9 +664,7 @@ class Program
         johnInvestment.Withdraw(1000m); // Should work with penalty
         Console.WriteLine();
 
-        // ========================================
-        // 7. SPECIFIC ACCOUNT BEHAVIORS
-        // ========================================
+
         Console.WriteLine("═══ 7. Account-Specific Methods ═══");
 
         Console.WriteLine("\n--- Savings: Apply Monthly Interest ---");
@@ -722,9 +679,7 @@ class Program
         johnInvestment.SellStock("AAPL", 5, 155m);
         Console.WriteLine();
 
-        // ========================================
-        // 8. INTERFACE IMPLEMENTATION - Transfers
-        // ========================================
+
         Console.WriteLine("═══ 8. Interface (ITransferable) - Fund Transfers ═══");
 
         Console.WriteLine("\n--- Transfer from Savings to Checking ---");
@@ -734,9 +689,6 @@ class Program
         firstNational.TransferFunds(johnChecking, sarahSavings, 200m);
         Console.WriteLine();
 
-        // ========================================
-        // 9. POLYMORPHISM WITH INTERFACE
-        // ========================================
         Console.WriteLine("═══ 9. Interface Polymorphism ═══");
         List<ITransferable> transferableAccounts = new List<ITransferable> { johnSavings, johnChecking };
 
@@ -747,9 +699,7 @@ class Program
         }
         Console.WriteLine();
 
-        // ========================================
-        // 10. CALCULATE INTEREST (Abstract method implementation)
-        // ========================================
+
         Console.WriteLine("═══ 10. Calculate Interest (Abstract Method) ═══");
         foreach (var account in allAccounts)
         {
@@ -758,17 +708,13 @@ class Program
         }
         Console.WriteLine();
 
-        // ========================================
-        // 11. CUSTOMER INFORMATION
-        // ========================================
+
         Console.WriteLine("═══ 11. Customer Account Summary ═══");
         john.DisplayCustomerInfo();
         sarah.DisplayCustomerInfo();
         Console.WriteLine();
 
-        // ========================================
-        // 12. TRANSACTION HISTORY
-        // ========================================
+
         Console.WriteLine("═══ 12. Transaction History ═══");
         var transactions = johnChecking.GetTransactionHistory();
         Console.WriteLine($"\nTransaction history for {johnChecking.AccountNumber}:");
@@ -778,35 +724,15 @@ class Program
         }
         Console.WriteLine();
 
-        // ========================================
-        // 13. BANK STATEMENT
-        // ========================================
+
         Console.WriteLine("═══ 13. Generate Bank Statement ═══");
         firstNational.GenerateBankStatement(johnSavings,
             DateTime.Now.AddDays(-30), DateTime.Now);
         Console.WriteLine();
 
-        // ========================================
-        // 14. BANK OVERVIEW
-        // ========================================
+
         Console.WriteLine("═══ 14. Bank Overview ═══");
         firstNational.DisplayBankInfo();
-
-        // ========================================
-        // SUMMARY
-        // ========================================
-        Console.WriteLine("\n╔════════════════════════════════════════════╗");
-        Console.WriteLine("║        OOP CONCEPTS DEMONSTRATED          ║");
-        Console.WriteLine("╚════════════════════════════════════════════╝");
-        Console.WriteLine("✓ ENCAPSULATION: Private fields, protected balance");
-        Console.WriteLine("✓ INHERITANCE: SavingsAccount/CheckingAccount/InvestmentAccount → Account");
-        Console.WriteLine("✓ POLYMORPHISM: Different withdraw/deposit behavior per account type");
-        Console.WriteLine("✓ ABSTRACTION: Abstract Account class with abstract methods");
-        Console.WriteLine("✓ COMPOSITION: Bank contains Customers and Accounts");
-        Console.WriteLine("✓ INTERFACES: ITransferable for transfer-capable accounts");
-        Console.WriteLine("✓ ENUMS: TransactionType and RiskLevel");
-        Console.WriteLine("✓ COLLECTIONS: Lists and Dictionaries for managing data");
-        Console.WriteLine("✓ PROTECTED: Protected set for Balance, protected transactions list");
 
         Console.WriteLine("\nPress any key to exit...");
         Console.ReadKey();
