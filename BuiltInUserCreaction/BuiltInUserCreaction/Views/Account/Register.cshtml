@@ -1,0 +1,15 @@
+﻿@model RegisterUserView
+
+
+<form asp-action="Register" method="post">
+    <div>
+        <label>Email: </label>
+        <input asp-for="Email"/>
+    </div>
+    <div>
+        <lable>Password</lable>
+        <input asp-for="Password"/>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
