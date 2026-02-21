@@ -1,0 +1,41 @@
+@APIPractice_HostAddress = http://localhost:5273
+
+GET {{APIPractice_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{APIPractice_HostAddress}}/api/books
+Accept: application/json
+
+###
+
+GET {{APIPractice_HostAddress}}/api/books/2
+Accept: application/json
+
+###
+
+POST {{APIPractice_HostAddress}}/api/books
+Content-Type: application/json
+{
+  "id": 6,
+  "title": "Shadows of the Mind2",
+  "author": "Jane Doe",
+  "yearPublished": 2026
+}
+
+###
+
+PUT {{APIPractice_HostAddress}}/api/books/6
+Content-Type: application/json
+{
+  "id": 6,
+  "title": "Shadows of the Mind 3",
+  "author": "Jane Doe",
+  "yearPublished": 2025
+}
+
+###
+
+DELETE {{APIPractice_HostAddress}}/api/books/6
+
