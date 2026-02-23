@@ -18,7 +18,6 @@ Accept: application/json
 POST {{APIPractice_HostAddress}}/api/books
 Content-Type: application/json
 {
-  "id": 6,
   "title": "Shadows of the Mind2",
   "author": "Jane Doe",
   "yearPublished": 2026
