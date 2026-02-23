@@ -1,0 +1,27 @@
+﻿@page "/books"
+@inject HttpClient Http
+
+<h3>Products</h3>
+
+@if (books == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var product in books)
+        {
+            <li>@product</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<string>? books;
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<List<string>>("api/books");
+    }
+}

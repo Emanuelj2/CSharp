@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace APIPractice.Controllers
 {
@@ -34,58 +36,64 @@ namespace APIPractice.Controllers
             return Ok(await _context.Books.ToListAsync());
         }
 
-        //[HttpGet("{id}")]
-        //public ActionResult<Book> GetBookById(int id)
-        //{
-        //    var book = books.FirstOrDefault(x=> x.ID == id);
-        //    if(book == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(book);
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Book>> GetBookById(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return Ok(book);
+        }
 
-        //[HttpPost]
-        //public ActionResult<Book> AddBook(Book newBook)
-        //{
-        //    if(newBook == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    books.Add(newBook);
-        //    return CreatedAtAction(nameof(GetBookById), new {id = newBook.ID}, newBook);
+        [HttpPost]
+        public async Task <ActionResult<Book>> AddBook(Book newBook)
+        {
+            if (newBook == null)
+            {
+                return BadRequest();
+            }
+            _context.Books.Add(newBook);
+            await _context.SaveChangesAsync();
 
-        //}
+            return CreatedAtAction(nameof(GetBookById), new { id = newBook.ID }, newBook);
 
-        //[HttpPut("{id}")]
-        //public ActionResult UpdateBook(int id, Book updateBook)
-        //{
-        //    var book = books.FirstOrDefault(x => x.ID == id);
-        //    if(book == null)
-        //    {
-        //        return NotFound();
-        //    }
+        }
 
-        //    book.ID = updateBook.ID;
-        //    book.Title = updateBook.Title;
-        //    book.Author = updateBook.Author;
-        //    book.YearPublished = updateBook.YearPublished;
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBook(int id, Book updateBook)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
 
-        //    return NoContent();
-        //}
+            book.ID = updateBook.ID;
+            book.Title = updateBook.Title;
+            book.Author = updateBook.Author;
+            book.YearPublished = updateBook.YearPublished;
 
-        //[HttpDelete("{id}")]
-        //public ActionResult DeleteBook(int id)
-        //{
-        //    var book = books.FirstOrDefault(x => x.ID == id);
-        //    if( book == null )
-        //    {
-        //        return NotFound();
-        //    }
-            
-        //    books.Remove(book);
-        //    return NoContent();
-        //}
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBook(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
 
     }
 }
