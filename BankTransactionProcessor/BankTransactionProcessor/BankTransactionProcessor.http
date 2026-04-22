@@ -1,0 +1,24 @@
+@BankTransactionProcessor_HostAddress = http://localhost:5052
+
+### Test Weather (optional default template)
+GET {{BankTransactionProcessor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+### Deposit Request
+POST {{BankTransactionProcessor_HostAddress}}/api/BankAccount/deposit
+Content-Type: application/json
+
+{
+  "accountId": 1,
+  "amount": 100.00
+}
+
+### Withdraw Request
+POST {{BankTransactionProcessor_HostAddress}}/api/BankAccount/withdraw
+Content-Type: application/json
+{
+  "accountId": 1,
+  "amount": 50.00
+}
