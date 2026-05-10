@@ -25,7 +25,7 @@ namespace Backend.Controllers
         //register
         //
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto model)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto model)
         {
             if(!ModelState.IsValid)
             {
@@ -63,10 +63,36 @@ namespace Backend.Controllers
         }
 
         //login
-        [HttpGet("login")]
-        public async Task<IActionResult> Login()
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LogingRequestDto model)
         {
-            return Ok();
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user is null)
+            {
+                return Unauthorized("Invalid email or password.");
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if (!result.Succeeded)
+            {
+                return Unauthorized("Invalid email or password.");
+            }
+
+            var token = await _jwtTokenService.GenerateAccessTokenAsync(user);
+            var refreshToken = _jwtTokenService.GenerateRefreshToken();
+            await _userManager.SetAuthenticationTokenAsync(user, "JWT", "RefreshToken", refreshToken);
+
+            return Ok(new AuthResponseDto(token, refreshToken));
         }
+
+
     }
 }
+
+
+public record RegisterRequestDto(string Email, string Password, string? FirstName, string? LastName);
+public record LogingRequestDto(string Email, string Password);
+public record RefrehRequestDto(string UserId, string RefreshToken);
+public record RevokeRequestDto(string UserId);
+public record AuthResponseDto(string AccessToken, string RefreshToken);
