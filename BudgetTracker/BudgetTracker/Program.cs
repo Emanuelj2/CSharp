@@ -1,4 +1,5 @@
 using BudgetTracker.Repositories;
+using BudgetTracker.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
@@ -15,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
 builder.Services.AddSingleton<ICategoryRepository, InMemoryCategoryRepository>();
-
+builder.Services.AddSingleton<IAuthService, AuthService>();
 
 //jwt authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
