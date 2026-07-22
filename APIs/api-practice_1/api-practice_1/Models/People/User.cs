@@ -1,6 +1,4 @@
-﻿using api_practice_1.Models.Enums;
-using System.Reflection.Metadata;
-
+﻿
 namespace api_practice_1.Models.People
 {
     public class User
